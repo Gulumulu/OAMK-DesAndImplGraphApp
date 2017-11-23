@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Gulumulu/OAMK-DesAndImplGraphApp/issues"
   },
-  "homepage": "https://github.com/Gulumulu/OAMK-DesAndImplGraphApp#readme"
+  "homepage": "https://github.com/Gulumulu/OAMK-DesAndImplGraphApp#readme",
+  "dependencies": {
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1"
+  }
 }
