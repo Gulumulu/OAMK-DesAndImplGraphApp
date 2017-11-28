@@ -1,16 +1,22 @@
-.col-md-3 {
-    font-size: 15px;
-    color: black;
+@import '../../node_modules/react-selectize/themes/index.css';
+
+.head {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0px;
+    padding-top: 15px;
+    margin: 0px;
+} 
+
+p {
+    border: black;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 12px;
+    background-color: #b0e3ff;
 }
 
-.w1 {
-    background-color: green;
-}
-
-.w2 {
+p:hover {
     background-color: red;
-}
-
-.w3 {
-    background-color: purple;
 }

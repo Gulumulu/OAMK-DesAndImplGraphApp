@@ -7,9 +7,6 @@ class Graphs extends Component {
         return (
             <div className="row">
                 <div className="col-md-3" class="w1">graphs</div>
-                <div className="col-md-3" class="w2">graphs</div>
-                <div className="col-md-3" class="w3">graphs</div>
-                <div className="col-md-3" class="w4">graphs</div>
             </div>
         )
 
