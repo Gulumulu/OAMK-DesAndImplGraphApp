@@ -1,18 +1,38 @@
-@import '../../node_modules/react-selectize/themes/index.css';
-
-.col-md-3 {
-    font-size: 30px;
-    color: black;
+.head {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0px;
+    margin: 0px;
+    padding-top: 25px;
 }
 
-.w1 {
-    background-color: green;
+head1 {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0px;
+    margin: 0px;
 }
 
-.w2 {
-    background-color: red;
+h2 {
+    font-size: 25px;
+    font-weight: bold;
+    color: #666;
+    text-align: center;
+    border-bottom: solid #666 1px;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-bottom: 50px;
+    padding-bottom: 5px;
 }
 
-.w3 {
-    background-color: purple;
+button {
+    background: rgba(77, 77, 77, .15);
+    border-radius: 0px;
+    position: relative;
+    left: 30px;
+    width: 70%;
+}
+
+button:hover {
+    background-color: rgba(77, 77, 77, .6);
 }

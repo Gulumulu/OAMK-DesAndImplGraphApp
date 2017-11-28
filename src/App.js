@@ -11,11 +11,12 @@ class App extends Component {
   render() {
     return (
 	<div className="App">
-	  <div className="App-header"><h1 className="App-title">HELLO</h1></div>
+	  <div className="App-header"><h1 className="App-title">Forest Scenario Indicator</h1></div>
 	  <div className="App-content">
 	    <div className="pad"><Scenario/></div>
 	    <div className="main"><Graphs/></div>
 	    <div className="pad"><Indicator/></div>
+			<div className="fdb"><span>Feedback</span></div>
 	  </div>
 	</div>
     );

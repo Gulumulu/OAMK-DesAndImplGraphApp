@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "bootstrap": "^3.3.7",
+    "muicss": "^0.9.30",
     "react": "^16.1.1",
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-shallow-compare": "^15.6.0",
@@ -17,6 +18,8 @@
     "react-native": "^0.50.3",
     "react-native-check-box": "^2.0.2",
     "react-native-elements": "^0.18.2",
+    "react-popup": "^0.8.0",
+    "react-radio-button": "^1.5.3",
     "react-radio-buttons": "^1.2.0",
     "react-scripts": "1.0.17",
     "react-select": "^1.1.0",
