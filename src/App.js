@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Menu from './components/Menu';
+import DataView from './components/DataView'
+import forestData from './data/ForestData'
 
 class App extends Component {
+
+	getData(){
+		forestData.getItems();
+	}
 
   render() {
     return (
@@ -11,7 +16,10 @@ class App extends Component {
 	  <div className="App-header"><h1 className="App-title">HELLO</h1></div>
 	  <div className="App-content">
 	    <div className="pad">CONTAINER</div>
-	    <div className="main">FUCK</div>
+	    <div className="main">
+        <DataView/>
+				<button className="btn btn-default btn-block" onClick={ this.getData }>click</button>
+      </div>
 	    <div className="pad">ANOTER</div>
 	  </div>
 	</div>
