@@ -5,25 +5,45 @@ import Graphs from './Graphs';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Menu extends Component {
-    render () {
 
+    constructor(props) {
+	super(props);
+	
+	this.state = {
+	    urls: [
+	    ]
+	}
+	this.openPrint = this.openPrint.bind(this);
+	
+    }
+    openPrint() {
+	
+	window.open('print', 'popUpWindow', 'height=300,width=300');
+    }
+
+    render() {
         return (
-            <div class="container">
-                <h1 class="header">Forest Service Indicator</h1>
-                <div class="row">
-                    <div class="col-md-3">
-                        <Scenario />
-                    </div>
-                    <div class="col-md-6">
-                        <Graphs />
-                    </div>
-                    <div class="col-md-3">
-                        <Indicator />
-                    </div>
-                </div>
-            </div>
-        )
-
+	    <div className="App">
+		
+		<div className="App-header">
+		    <h1 className="App-title">Forest Service</h1>
+		</div>
+		
+		<div className="App-content">
+		    
+		    <div className="pad"><hr />
+			<Scenario />
+		    </div>
+		    <div className="main">
+			<button className="btn btn-default btn-block"
+				onClick={ this.openPrint }>Paina</button>
+		    </div>
+		    <div className="pad"><hr />
+			<Indicator />
+		    </div>
+		</div>
+	    </div>
+	);
     }
 }
 
