@@ -1,5 +1,5 @@
 body {
-    background: url("./images/bg-normal.jpg") 100% fixed ;
+    background: url("../images/bg-normal.jpg") 100% fixed ;
     
 }
 #root {
@@ -7,7 +7,7 @@ body {
 }
 .App {
     margin: auto;
-    background: url("./images/bg-blur-frosted.jpg") 100% fixed;
+    background: url("../images/bg-blur-frosted.jpg") 100% fixed;
     display: flex;
     flex-flow: column;
     position: relative;

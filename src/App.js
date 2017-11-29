@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import './App.css';
-import Menu from './components/Menu';
+import Main from './views/Main';
 
-class App extends Component {
-    
+class App extends Component {    
     render() {
-	return (
-	    <Menu />
-	);
+        return (
+            <Main />
+        );
     }
 }
 
