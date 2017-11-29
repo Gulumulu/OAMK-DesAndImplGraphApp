@@ -9,36 +9,19 @@ class App extends Component {
 	constructor(props){
 		super(props)
 
-		this.state = {
-			urls: [
-				"http://melatupa.azurewebsites.net/regionLevels",
-				"http://melatupa.azurewebsites.net/regionLevels/1/regions",
-				"http://melatupa.azurewebsites.net/scenarioCollection/6/region/24"
-
-			],
-			inputValue: ""
-		}
-
-		this.getData = this.getData.bind(this);
-		this.inputChange = this.inputChange.bind(this);
-		this.handleClick = this.handleClick.bind(this);
+		this.getRegionLevels = this.getRegionLevels.bind(this);
+		this.getRegions = this.getRegionLevels.bind(this);
 	}
 
-	getData(index){
+	getRegionLevels(){
 		// forestData.getScenarioCollection(6, 24);
 		forestData.getRegionLevels();
 	}
-
-	inputChange(event){
-		console.log(event.target.value);
-		this.setState({ [event.target.name]: event.target.value });
+	
+	getRegions(regionLevelId){
+		// forestData.getScenarioCollection(6, 24);
+		forestData.getRegions();
 	}
-
-	handleClick(){
-		forestData.getRegions(this.state.inputValue);
-
-	}
-
   render() {
     return (
 	<div className="App">
@@ -46,11 +29,7 @@ class App extends Component {
 	  <div className="App-content">
 	    <div className="pad">CONTAINER</div>
 	    <div className="main">
-        <DataView/>
-				<input type="text" name="inputValue" value={this.inputValue} onChange={this.inputChange}></input>
-				<button className="btn btn-default btn-block" onClick={ this.getData }>regionLevels</button>
-				<button className="btn btn-default btn-block" onClick={ this.handleClick }>regionLevels/1/regions</button>
-				{this.getData}
+				<button className="btn btn-default btn-block" onClick={ this.getRegionLevels }>regionLevels</button>
       </div>
 	    <div className="pad">ANOTER</div>
 	  </div>
