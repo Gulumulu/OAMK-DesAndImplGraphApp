@@ -1,6 +1,5 @@
 body {
-    background: url("../images/bg-normal.jpg") 100% fixed ;
-    
+    background: url("../images/bg-normal.jpg") 100% fixed ;    
 }
 #root {
     height: 100vh;

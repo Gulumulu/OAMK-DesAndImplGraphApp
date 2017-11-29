@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import './Print.css'
+//import '../styles/Print.css'
 
 class Print extends Component {
-    
-	       render() {
-	           return(
-		              
-	           );
-	       }
-    }
+	  render() {
+	      return(
+		        <div>Hello world!</div>
+	      );
+	  }
+}
 export default Print;
