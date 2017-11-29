@@ -6,8 +6,37 @@ import forestData from './data/ForestData'
 
 class App extends Component {
 
-	getData(){
-		forestData.getItems();
+	constructor(props){
+		super(props)
+
+		this.state = {
+			urls: [
+				"http://melatupa.azurewebsites.net/regionLevels",
+				"http://melatupa.azurewebsites.net/regionLevels/1/regions",
+				"http://melatupa.azurewebsites.net/scenarioCollection/6/region/24"
+
+			],
+			inputValue: ""
+		}
+
+		this.getData = this.getData.bind(this);
+		this.inputChange = this.inputChange.bind(this);
+		this.handleClick = this.handleClick.bind(this);
+	}
+
+	getData(index){
+		// forestData.getScenarioCollection(6, 24);
+		forestData.getRegionLevels();
+	}
+
+	inputChange(event){
+		console.log(event.target.value);
+		this.setState({ [event.target.name]: event.target.value });
+	}
+
+	handleClick(){
+		forestData.getRegions(this.state.inputValue);
+
 	}
 
   render() {
@@ -18,7 +47,10 @@ class App extends Component {
 	    <div className="pad">CONTAINER</div>
 	    <div className="main">
         <DataView/>
-				<button className="btn btn-default btn-block" onClick={ this.getData }>click</button>
+				<input type="text" name="inputValue" value={this.inputValue} onChange={this.inputChange}></input>
+				<button className="btn btn-default btn-block" onClick={ this.getData }>regionLevels</button>
+				<button className="btn btn-default btn-block" onClick={ this.handleClick }>regionLevels/1/regions</button>
+				{this.getData}
       </div>
 	    <div className="pad">ANOTER</div>
 	  </div>
