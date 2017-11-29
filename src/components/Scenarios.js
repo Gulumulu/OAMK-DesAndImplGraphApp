@@ -9,17 +9,19 @@ class Scenarios extends Component {
 
         return (
             <div className="row">
-                <h2>SCENARIOS</h2>
-                <div className="col-md-12 head1">Regional level</div>
+                <h2 className="s">SCENARIOS</h2>
+                <div className="col-md-12 head1-s">Regional level</div>
                 <div className="col-md-12 drop">
                 <SimpleSelect placeholder="Select level"
                             theme="material"
-                            className="sel">
-                    <option value = "region">Region</option>
-                    <option value = "municipality">Municipality</option>
+                            className="sel"
+                            onValueChange={value => alert(value)}
+                            options = {this.props.data.map(
+                                element => ({label: element.name, value: element.name})
+                            )}>
                 </SimpleSelect>
                 </div>
-                <div className="col-md-12 head">Region</div>
+                <div className="col-md-12 head-s">Region</div>
                 <div className="col-md-12 drop">
                 <SimpleSelect placeholder="Select region"
                             theme="material"
@@ -28,7 +30,7 @@ class Scenarios extends Component {
                     <option value = "municipality">Municipality</option>
                 </SimpleSelect>
                 </div>
-                <div className="col-md-12 head">Scenario Collection</div>
+                <div className="col-md-12 head-s">Scenario Collection</div>
                 <div className="col-md-12 drop">
                 <SimpleSelect placeholder="Select scenario group"
                             theme="material"
@@ -37,7 +39,7 @@ class Scenarios extends Component {
                     <option value = "municipality">Municipality</option>
                 </SimpleSelect>
                 </div>
-                <div className="col-md-12 head">Scenarios</div>
+                <div className="col-md-12 head-s">Scenarios</div>
                 <div className="col-md-12 mult">
                 <MultiSelect placeholder = "Select scenarios"
                             theme="material"
@@ -47,7 +49,7 @@ class Scenarios extends Component {
                             )}>
                 </MultiSelect>
                 </div>
-                <div className="col-md-12 head">Time period</div>
+                <div className="col-md-12 head-s">Time period</div>
                 <div className="col-sm-12 drop">
                 <SimpleSelect placeholder="Select time period"
                             theme="material"
