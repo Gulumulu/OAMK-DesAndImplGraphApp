@@ -46,6 +46,7 @@ body {
 .App-content .main {
     background: #F5F6F7;
     min-width: 300px;
+    padding: 0em;
     flex: 2;
     border-radius: 10px;
 }
