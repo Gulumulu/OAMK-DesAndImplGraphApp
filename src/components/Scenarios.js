@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Scenarios.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { ReactSelectize, SimpleSelect, MultiSelect } from 'react-selectize';
+import { SimpleSelect, MultiSelect } from 'react-selectize';
 
 class Scenarios extends Component {
 
@@ -11,55 +11,52 @@ class Scenarios extends Component {
             <div className="row">
                 <h2 className="s">SCENARIOS</h2>
                 <div className="col-md-12 head1-s">Regional level</div>
-                <div className="col-md-12 drop">
-                <SimpleSelect placeholder="Select level"
+                <div className="col-md-12">
+                <SimpleSelect placeholder="Select regional level"
                             theme="material"
-                            className="sel"
-                            onValueChange={value => alert(value)}
-                            options = {this.props.data.map(
-                                element => ({label: element.name, value: element.name})
+                            onValueChange={ value => this.props.getRegionData(value) }
+                            options = { this.props.data.map(
+                                element => ({ label: element.name, value: element.id })
                             )}>
                 </SimpleSelect>
                 </div>
                 <div className="col-md-12 head-s">Region</div>
-                <div className="col-md-12 drop">
+                <div className="col-md-12">
                 <SimpleSelect placeholder="Select region"
                             theme="material"
-                            className="sel">
-                    <option value = "region">Region</option>
-                    <option value = "municipality">Municipality</option>
+                            onValueChange={ value => this.props.getScenarioCollectionData(value) }
+                            options = { this.props.dataRegions.map(
+                                element => ({ label: element.name, value: element.id })
+                            )}>
                 </SimpleSelect>
                 </div>
                 <div className="col-md-12 head-s">Scenario Collection</div>
-                <div className="col-md-12 drop">
-                <SimpleSelect placeholder="Select scenario group"
+                <div className="col-md-12">
+                <SimpleSelect placeholder="Select scenario collection"
                             theme="material"
-                            className="sel">
-                    <option value = "region">Region</option>
-                    <option value = "municipality">Municipality</option>
+                            onValueChange={ value => this.props.getScenarioData(value) }
+                            options = { this.props.dataScenarioCollection.map(
+                                element => ({ label: element.name, value: element.id })
+                            )}>
                 </SimpleSelect>
                 </div>
                 <div className="col-md-12 head-s">Scenarios</div>
-                <div className="col-md-12 mult">
+                <div className="col-md-12">
                 <MultiSelect placeholder = "Select scenarios"
                             theme="material"
-                            className="sel"
-                            options = {["1", "2", "3"].map(
-                            scenario => ({label: scenario, value: scenario})
+                            options = { this.props.dataScenarios.map(
+                                element => ({ label: element.description, value: element.id })
                             )}>
                 </MultiSelect>
                 </div>
                 <div className="col-md-12 head-s">Time period</div>
-                <div className="col-sm-12 drop">
+                <div className="col-sm-12">
                 <SimpleSelect placeholder="Select time period"
+                            className="sel"
                             theme="material"
-                            className="sel">
-                    <option value = "period1">2021 (- 2025)</option>
-                    <option value = "period2">2026 (- 2030)</option>
-                    <option value = "period3">2031 (- 2035)</option>
-                    <option value = "period4">2036 (- 2040)</option>
-                    <option value = "period5">2041 (- 2045)</option>
-                    <option value = "period6">2046 (- 2050)</option>
+                            options = { this.props.dataTimePeriods.map(
+                                element => ({ label: element.yearStart.toString() + " - " + element.yearEnd.toString(), value: element.id })
+                            )}>
                 </SimpleSelect>
                 </div>
             </div>
