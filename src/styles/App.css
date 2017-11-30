@@ -5,7 +5,8 @@ body {
     background: url("../images/bg-normal.jpg") 100% fixed ;    
 }
 .App {
-    min-width: 890px;
+    min-width: 900px;
+    overflow: auto;
     margin: auto;
     background: url("../images/bg-blur-frosted.jpg") 100% fixed;
     display: flex;
@@ -13,6 +14,7 @@ body {
     position: relative;
     width: 90%;
     max-height: 100%;
+    transition: all 1s;
 }
 
 .App-header {
@@ -39,12 +41,21 @@ body {
     flex: 1;
     position: relative;
 }
-.App-content .main {
+.App-content .main-scrollable {
     background: #F5F6F7;
     flex: 1 0 300px;
-    border-radius: 3px;
+    padding: 0;
+    border: 5px solid #F5F6F7;
+    border-radius: 10px;
     min-height: 0;
+    overflow: hidden;
+}
+.main-content {
     overflow-y: auto;
+    height: 100%;
+    padding-right: 15px;
+    margin-right: -25px;
+    position: relative;
 }
 
 /*Media tags*/
@@ -61,7 +72,7 @@ body {
         height: 100%;
     }
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
     .App {
         width: 100% !important;
     }
