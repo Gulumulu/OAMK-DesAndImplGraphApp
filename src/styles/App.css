@@ -1,17 +1,18 @@
+html, body, #root {
+    height: 100%;
+}
 body {
     background: url("../images/bg-normal.jpg") 100% fixed ;    
 }
-#root {
-    height: 100vh;
-}
 .App {
+    min-width: 890px;
     margin: auto;
     background: url("../images/bg-blur-frosted.jpg") 100% fixed;
     display: flex;
     flex-flow: column;
     position: relative;
     width: 90%;
-    min-height: 100%
+    max-height: 100%;
 }
 
 .App-header {
@@ -25,10 +26,10 @@ body {
 }
 
 .App-content {
-    flex: 1;
+    flex: 12;
     display: flex;
     position: relative;
-    height: auto;
+    min-height: 0;
     padding-bottom: 2em;
 }
 .App-content > * {
@@ -36,10 +37,32 @@ body {
 }
 .App-content .pad {
     flex: 1;
+    position: relative;
 }
 .App-content .main {
     background: #F5F6F7;
-    min-width: 300px;
-    flex: 2;
-    border-radius: 10px;
+    flex: 1 0 300px;
+    border-radius: 3px;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+/*Media tags*/
+@media print {
+    body {
+        height: 297mm;
+        width: 210mm;
+    }
+    .pad, button {
+        display: none !important;
+    }
+    .main {
+        width: 100%;
+        height: 100%;
+    }
+}
+@media screen and (max-width: 900px) {
+    .App {
+        width: 100% !important;
+    }
 }
