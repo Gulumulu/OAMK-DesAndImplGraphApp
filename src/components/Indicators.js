@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Indicators.css';
+import '../styles/Indicators.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { MultiSelect } from 'react-selectize';
 

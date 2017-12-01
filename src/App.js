@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import './App.css';
+import './styles/App.css';
 import Indicator from './components/Indicators';
 import Scenario from './components/Scenarios';
 import Graphs from './components/Graphs';
 import LangSwitcher from './components/LangSwitcher';
 import forestData from './data/ForestData';
+import { Switch, Route } from 'react-router-dom';
+import Main from './views/Main';
+import Feedback from './views/Feedback';
+import Layout from './Layout';
+
+import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
-
 	constructor(props){
 		super(props)
 
@@ -108,27 +113,29 @@ class App extends Component {
 
   render() {
 
-    return (
-		<div className="App">
-			<div className="App-header"><h1 className="App-title">Forest Scenario Indicator</h1>
-			<LangSwitcher toggleLanguage={this.toggleLanguage} lang={this.state.lang}/>
-			</div>
-			<div className="App-content">
-				<div className="pad"><Scenario data={ this.state.data }
-												dataRegions={ this.state.dataRegions }
-												dataScenarioCollection={ this.state.dataScenarioCollection }
-												dataScenarios={ this.state.dataScenarios }
-												dataTimePeriods={ this.state.dataTimePeriods }
-												getRegionData={ this.getRegionData }
-												getScenarioCollectionData={ this.getScenarioCollectionData }
-												getScenarioData={ this.getScenarioData }/></div>
-				<div className="main"><Graphs/></div>
-				<div className="pad"><Indicator dataIndicatorCategories={ this.state.dataIndicatorCategories }
-												dataIndicators={ this.state.dataIndicators }/></div>
-				<div className="fdb"><span>Feedback</span></div>
-			</div>
-		</div>
-		);
+      return (
+		      <div className="App">
+			        <div className="App-header"><h1 className="App-title">Forest Scenario Indicator</h1>
+			            <LangSwitcher toggleLanguage={this.toggleLanguage} lang={this.state.lang}/>
+			        </div>
+			        <div className="App-content">
+				          <div className="pad"><Scenario data={ this.state.data }
+											dataRegions={ this.state.dataRegions }
+											dataScenarioCollection={ this.state.dataScenarioCollection }
+											dataScenarios={ this.state.dataScenarios }
+											dataTimePeriods={ this.state.dataTimePeriods }
+											getRegionData={ this.getRegionData }
+											getScenarioCollectionData={ this.getScenarioCollectionData }
+											getScenarioData={ this.getScenarioData }/></div>
+                  <div className="main-scrollable">
+                      <div className="main-content"><Graphs/></div>
+                  </div>
+				          <div className="pad"><Indicator dataIndicatorCategories={ this.state.dataIndicatorCategories }
+											dataIndicators={ this.state.dataIndicators }/></div>
+				          <div className="fdb"><span>Feedback</span></div>
+			        </div>
+		      </div>
+		  );
 
   }
 }

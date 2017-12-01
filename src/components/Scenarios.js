@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Scenarios.css';
+import '../styles/Scenarios.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { SimpleSelect, MultiSelect } from 'react-selectize';
 
