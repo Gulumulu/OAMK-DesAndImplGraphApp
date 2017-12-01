@@ -1,25 +1,21 @@
 import axios from 'axios';
+import { reactLocalStorage } from 'reactjs-localstorage';
 
-function getItems(url) {
-    return new Promise((resolve, reject) => {
-        axios.get(url)
-            .then(results => {
-                resolve();
-            })
-            .catch(error => {
-                console.log(error);
-                reject();
-            })
-    });
-}
+// var urls: [
+//     "http://melatupa.azurewebsites.net/regionLevels",
+//     "http://melatupa.azurewebsites.net/regionLevels/1/regions",
+//     "http://melatupa.azurewebsites.net/scenarioCollection/6/region/24"
+// ]
 
-function getRegionLevels() {
+function getRegionLevels(){
     return new Promise((resolve, reject) => {
-        axios.get("http://melatupa.azurewebsites.net/regionLevels", { headers : {'Accept-Language': 'en'}})
+        axios.get("http://melatupa.azurewebsites.net/regionLevels",{ headers: { 'Accept-Language': reactLocalStorage.get('lang', 'fi') } })
             .then(results => {
+                //console.log(results);
                 const regionLevels = results.data.map(element => {
                     return element;
                 });
+                console.log(regionLevels);
                 resolve(regionLevels);
             })
             .catch(error => {
@@ -29,13 +25,15 @@ function getRegionLevels() {
     });
 }
 
-function getRegions(regionLevelId) {
+function getRegions(regionLevelId){
     return new Promise((resolve, reject) => {
-        axios.get("http://melatupa.azurewebsites.net/regionLevels/"+ String(regionLevelId) +"/regions", { headers : {'Accept-Language': 'en'}})
+        axios.get("http://melatupa.azurewebsites.net/regionLevels/"+ String(regionLevelId) +"/regions",{ headers: { 'Accept-Language': reactLocalStorage.get('lang', 'fi') } })
             .then(results => {
+                //console.log(results);
                 const regions = results.data.map(element => {
                     return element;
                 });
+                // console.log(regions);
                 resolve(regions);
             })
             .catch(error => {
@@ -45,20 +43,22 @@ function getRegions(regionLevelId) {
     });
 }
 
-function getScenarios(scenarioCollectionId, regionId) {
+function getScenarios(scenarioCollectionId, regionId){
     return new Promise((resolve, reject) => {
-        axios.get("http://melatupa.azurewebsites.net/scenarioCollection/"+ String(scenarioCollectionId) +"/region/"+ String(regionId), { headers : {'Accept-Language': 'en'}})
+        axios.get("http://melatupa.azurewebsites.net/scenarioCollection/"+ String(scenarioCollectionId) +"/region/"+ String(regionId),{ headers: { 'Accept-Language': reactLocalStorage.get('lang', 'fi') } })
             .then(results => {
                 const scenarios = results.data.map(element => {
-                    return element;
+                    return element;;
                 });
-                resolve(scenarios);
+                // console.log(scenarioCollection);
+                resolve(scenarioCollection);
             })
             .catch(error => {
                 console.log(error);
                 reject();
             })
     })
+
 }
 
-export default { getItems, getRegionLevels, getRegions, getScenarios };
+export default { getRegionLevels, getRegions, getScenarios };

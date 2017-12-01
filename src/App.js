@@ -80,7 +80,7 @@ class App extends Component {
 	}
 
 	showIndicatorCategories() {
-		
+
 	}
 
 	componentDidMount() {
@@ -110,7 +110,7 @@ class App extends Component {
 			</div>
 		</div>
 		);
-		
+
   }
 }
 
