@@ -1,25 +1,62 @@
 import React, { Component } from 'react';
 import './Scenarios.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {ReactSelectize, SimpleSelect} from 'react-selectize';
+import { SimpleSelect, MultiSelect } from 'react-selectize';
 
 class Scenarios extends Component {
+
     render () {
 
         return (
             <div className="row">
-                <div className="col-md-12">Regional level</div>
+                <h2 className="s">SCENARIOS</h2>
+                <div className="col-md-12 head1-s">Regional level</div>
                 <div className="col-md-12">
-                <SimpleSelect placeholder="Select the level">
-                    <option value = "region">Region</option>
-                    <option value = "municipality">Municipality</option>
+                <SimpleSelect placeholder="Select regional level"
+                            theme="material"
+                            onValueChange={ value => this.props.getRegionData(value) }
+                            options = { this.props.data.map(
+                                element => ({ label: element.name, value: element.id })
+                            )}>
                 </SimpleSelect>
                 </div>
-                <div className="col-md-12">Region</div>
+                <div className="col-md-12 head-s">Region</div>
                 <div className="col-md-12">
-                <SimpleSelect placeholder="Select the level">
-                    <option value = "region">Region</option>
-                    <option value = "municipality">Municipality</option>
+                <SimpleSelect placeholder="Select region"
+                            theme="material"
+                            onValueChange={ value => this.props.getScenarioCollectionData(value) }
+                            options = { this.props.dataRegions.map(
+                                element => ({ label: element.name, value: element.id })
+                            )}>
+                </SimpleSelect>
+                </div>
+                <div className="col-md-12 head-s">Scenario Collection</div>
+                <div className="col-md-12">
+                <SimpleSelect placeholder="Select scenario collection"
+                            theme="material"
+                            onValueChange={ value => this.props.getScenarioData(value) }
+                            options = { this.props.dataScenarioCollection.map(
+                                element => ({ label: element.name, value: element.id })
+                            )}>
+                </SimpleSelect>
+                </div>
+                <div className="col-md-12 head-s">Scenarios</div>
+                <div className="col-md-12">
+                <MultiSelect placeholder = "Select scenarios"
+                            theme="material"
+                            options = { this.props.dataScenarios.map(
+                                element => ({ label: element.description, value: element.id })
+                            )}>
+                </MultiSelect>
+                </div>
+                <div className="col-md-12 head-s">Time period</div>
+                <div className="col-sm-12">
+                <SimpleSelect placeholder="Select time period"
+                            className="sel"
+                            theme="material"
+                            options = { this.props.dataTimePeriods.map(
+                                element => ({ label: element.yearStart.toString() + " - " + element.yearEnd.toString(), value: element.id })
+                            )}>
                 </SimpleSelect>
                 </div>
             </div>
