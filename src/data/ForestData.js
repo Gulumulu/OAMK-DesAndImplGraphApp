@@ -51,7 +51,7 @@ function getScenarios(scenarioCollectionId, regionId){
                     return element;;
                 });
                 // console.log(scenarioCollection);
-                resolve(scenarioCollection);
+                resolve(scenarios);
             })
             .catch(error => {
                 console.log(error);

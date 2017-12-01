@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { reactLocalStorage } from 'reactjs-localstorage';
 import './App.css';
 import Indicator from './components/Indicators';
 import Scenario from './components/Scenarios';
 import Graphs from './components/Graphs';
+import LangSwitcher from './components/LangSwitcher';
 import forestData from './data/ForestData';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -12,6 +14,7 @@ class App extends Component {
 		super(props)
 
 		this.state = {
+			lang: reactLocalStorage.get('lang', 'fi'),
 			data: [],
 			dataRegions: [],
 			dataScenarioCollection: [],
@@ -27,6 +30,20 @@ class App extends Component {
 		this.getScenarioData = this.getScenarioData.bind(this);
 		this.getIndicators = this.getIndicators.bind(this);
 		this.showIndicatorCategories = this.showIndicatorCategories.bind(this);
+		this.toggleLanguage = this.toggleLanguage.bind(this);
+	}
+
+	toggleLanguage() {
+		if (this.state.lang === 'fi') {
+			this.setState({ lang: 'en' })
+			reactLocalStorage.set('lang', 'en');
+		} else if (this.state.lang === 'en') {
+			this.setState({ lang: 'fi' })
+			reactLocalStorage.set('lang', 'fi');
+		} else {
+			this.setState({ lang: 'fi' })
+			reactLocalStorage.set('lang', 'fi');
+		}
 	}
 
 	getRegionData(regionLevelData) {
@@ -93,7 +110,9 @@ class App extends Component {
 
     return (
 		<div className="App">
-			<div className="App-header"><h1 className="App-title">Forest Scenario Indicator</h1></div>
+			<div className="App-header"><h1 className="App-title">Forest Scenario Indicator</h1>
+			<LangSwitcher toggleLanguage={this.toggleLanguage} lang={this.state.lang}/>
+			</div>
 			<div className="App-content">
 				<div className="pad"><Scenario data={ this.state.data }
 												dataRegions={ this.state.dataRegions }
