@@ -7,17 +7,16 @@ class Indicators extends Component {
 
     render () {
 
-        console.log(this.props.dataIndicators);
-
         var showIndicators= [];
-        for (var i = 0, iLen = this.props.dataIndicatorCategories.length; i < iLen; i++) {
+
+        for (var i = 0, iLen = this.props.dataIndicators.length; i < iLen; i++) {
             showIndicators.push(
                 <div>
                     <p>{ this.props.dataIndicatorCategories[i].name }</p>
                     <MultiSelect placeholder = "Select scenarios"
                                 theme="material"
                                 className="sel"
-                                options = { this.props.dataIndicators.map(
+                                options = { this.props.dataIndicators[i].map(
                                     element => ({ label: element.name, value: element.id })
                                 )}>
                     </MultiSelect>

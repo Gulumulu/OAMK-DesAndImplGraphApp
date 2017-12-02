@@ -25,8 +25,6 @@ class App extends Component {
 		this.getRegionData = this.getRegionData.bind(this);
 		this.getScenarioCollectionData = this.getScenarioCollectionData.bind(this);
 		this.getScenarioData = this.getScenarioData.bind(this);
-		this.getIndicators = this.getIndicators.bind(this);
-		this.showIndicatorCategories = this.showIndicatorCategories.bind(this);
 	}
 
 	getRegionData(regionLevelData) {
@@ -55,32 +53,24 @@ class App extends Component {
 	}
 
 	getScenarioData(sceCol) {
+		var tmpArr= [];
 		if (sceCol === undefined || this.state.regID === undefined) {
 			return;
 		}
 		else {
 			forestData.getScenarios(sceCol.value, this.state.regID).then(result => {
 				for (var i = 0, iLen = result.length; i < iLen; i++) {
+					for (var j = 0, jLen = result[i].indicatorCategories.length; j < jLen; j++) {
+						tmpArr.push(result[i].indicatorCategories[j].indicators);
+					}
 					this.setState({ dataScenarios: result[i].scenarios,
 									dataTimePeriods: result[i].timePeriods,
-									dataIndicatorCategories: result[i].indicatorCategories });
-					this.getIndicators();
-					this.showIndicatorCategories();
-				}
-			});
+									dataIndicatorCategories: result[i].indicatorCategories,
+									dataIndicators: tmpArr });
+					tmpArr = [];
+				};
+			})
 		}
-	}
-
-	getIndicators() {
-		for (var i = 0, iLen = this.state.dataIndicatorCategories.length; i < iLen; i++) {
-			for (var j = 0, jLen = this.state.dataIndicatorCategories[i].indicators.length; j < jLen; j++) {
-				this.state.dataIndicators.push(this.state.dataIndicatorCategories[i].indicators[j]);
-			}
-		};
-	}
-
-	showIndicatorCategories() {
-		
 	}
 
 	componentDidMount() {
