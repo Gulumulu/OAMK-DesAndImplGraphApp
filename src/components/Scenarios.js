@@ -1,18 +1,51 @@
 import React, { Component } from 'react';
+import { reactLocalStorage } from 'reactjs-localstorage';
 import '../styles/Scenarios.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { SimpleSelect, MultiSelect } from 'react-selectize';
+import LocalizedStrings from 'react-localization';
 
 class Scenarios extends Component {
 
     render () {
 
+        let strings = new LocalizedStrings({
+			fi:{
+                title:"SKENAARIOT",
+                regional_level:"Aluetaso",
+                select_regional_level:"Valitse aluetaso",
+                region:"Alue",
+                select_region:"Valitse alue",
+                scenario_collection:"Skenaariokokoelma",
+                select_scenario_collection:"Valitse skenaariokokoelma",
+                scenarios:"Skenaariot",
+                select_scenarios:"Valitse skenaariot",
+                time_period:"Ajankohta",
+                select_time_period:"Valitse ajankohta"
+			},
+			en:{
+                title:"SCENARIOS",
+                regional_level:"Regional level",
+                select_regional_level:"Select regional level",
+                region:"Region",
+                select_region:"Select region",
+                scenario_collection:"Scenario collection",
+                select_scenario_collection:"Select scenario collection",
+                scenarios:"Scenarios",
+                select_scenarios:"Select scenarios",
+                time_period:"Time period",
+                select_time_period:"Select time period"
+			}
+		});
+		
+		strings.setLanguage(reactLocalStorage.get('lang', 'fi'));
+
         return (
             <div className="row">
-                <h2 className="s">SCENARIOS</h2>
-                <div className="col-md-12 head1-s">Regional level</div>
+                <h2 className="s">{strings.title}</h2>
+                <div className="col-md-12 head1-s">{strings.regional_level}</div>
                 <div className="col-md-12">
-                <SimpleSelect placeholder="Select regional level"
+                <SimpleSelect placeholder={strings.select_regional_level}
                             theme="material"
                             onValueChange={ value => this.props.getRegionData(value) }
                             options = { this.props.data.map(
@@ -20,9 +53,9 @@ class Scenarios extends Component {
                             )}>
                 </SimpleSelect>
                 </div>
-                <div className="col-md-12 head-s">Region</div>
+                <div className="col-md-12 head-s">{strings.region}</div>
                 <div className="col-md-12">
-                <SimpleSelect placeholder="Select region"
+                <SimpleSelect placeholder={strings.select_region}
                             theme="material"
                             onValueChange={ value => this.props.getScenarioCollectionData(value) }
                             options = { this.props.dataRegions.map(
@@ -30,9 +63,9 @@ class Scenarios extends Component {
                             )}>
                 </SimpleSelect>
                 </div>
-                <div className="col-md-12 head-s">Scenario Collection</div>
+                <div className="col-md-12 head-s">{strings.scenario_collection}</div>
                 <div className="col-md-12">
-                <SimpleSelect placeholder="Select scenario collection"
+                <SimpleSelect placeholder={strings.select_scenario_collection}
                             theme="material"
                             onValueChange={ value => this.props.getScenarioData(value) }
                             options = { this.props.dataScenarioCollection.map(
@@ -40,18 +73,18 @@ class Scenarios extends Component {
                             )}>
                 </SimpleSelect>
                 </div>
-                <div className="col-md-12 head-s">Scenarios</div>
+                <div className="col-md-12 head-s">{strings.scenarios}</div>
                 <div className="col-md-12">
-                <MultiSelect placeholder = "Select scenarios"
+                <MultiSelect placeholder = {strings.select_scenarios}
                             theme="material"
                             options = { this.props.dataScenarios.map(
                                 element => ({ label: element.description, value: element.id })
                             )}>
                 </MultiSelect>
                 </div>
-                <div className="col-md-12 head-s">Time period</div>
+                <div className="col-md-12 head-s">{strings.time_period}</div>
                 <div className="col-sm-12">
-                <SimpleSelect placeholder="Select time period"
+                <SimpleSelect placeholder={strings.select_time_period}
                             className="sel"
                             theme="material"
                             options = { this.props.dataTimePeriods.map(
