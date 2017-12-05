@@ -10,12 +10,15 @@ import { Switch, Route } from 'react-router-dom';
 import Main from './views/Main';
 import Feedback from './views/Feedback';
 import Layout from './Layout';
+import LocalizedStrings from 'react-localization';
 
 import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+
 class App extends Component {
-	constructor(props){
+	constructor(props) {
 		super(props)
 
 		this.state = {
@@ -38,6 +41,8 @@ class App extends Component {
 		this.toggleLanguage = this.toggleLanguage.bind(this);
 	}
 
+
+
 	toggleLanguage() {
 		if (this.state.lang === 'fi') {
 			this.setState({ lang: 'en' })
@@ -49,10 +54,13 @@ class App extends Component {
 			this.setState({ lang: 'fi' })
 			reactLocalStorage.set('lang', 'fi');
 		}
+		forestData.getRegionLevels().then(result => {
+			this.setState({ data: result });
+		});
 	}
 
 	getRegionData(regionLevelData) {
-		if (regionLevelData === undefined ) {
+		if (regionLevelData === undefined) {
 			return;
 		}
 		else {
@@ -63,7 +71,7 @@ class App extends Component {
 	}
 
 	getScenarioCollectionData(regionData) {
-		if (regionData === undefined ) {
+		if (regionData === undefined) {
 			return;
 		}
 		else {
@@ -83,9 +91,11 @@ class App extends Component {
 		else {
 			forestData.getScenarios(sceCol.value, this.state.regID).then(result => {
 				for (var i = 0, iLen = result.length; i < iLen; i++) {
-					this.setState({ dataScenarios: result[i].scenarios,
-									dataTimePeriods: result[i].timePeriods,
-									dataIndicatorCategories: result[i].indicatorCategories });
+					this.setState({
+						dataScenarios: result[i].scenarios,
+						dataTimePeriods: result[i].timePeriods,
+						dataIndicatorCategories: result[i].indicatorCategories
+					});
 					this.getIndicators();
 					this.showIndicatorCategories();
 				}
@@ -111,33 +121,46 @@ class App extends Component {
 		});
 	}
 
-  render() {
+	render() {
 
-      return (
-		      <div className="App">
-			        <div className="App-header"><h1 className="App-title">Forest Scenario Indicator</h1>
-			            <LangSwitcher toggleLanguage={this.toggleLanguage} lang={this.state.lang}/>
-			        </div>
-			        <div className="App-content">
-				          <div className="pad"><Scenario data={ this.state.data }
-											dataRegions={ this.state.dataRegions }
-											dataScenarioCollection={ this.state.dataScenarioCollection }
-											dataScenarios={ this.state.dataScenarios }
-											dataTimePeriods={ this.state.dataTimePeriods }
-											getRegionData={ this.getRegionData }
-											getScenarioCollectionData={ this.getScenarioCollectionData }
-											getScenarioData={ this.getScenarioData }/></div>
-                  <div className="main-scrollable">
-                      <div className="main-content"><Graphs/></div>
-                  </div>
-				          <div className="pad"><Indicator dataIndicatorCategories={ this.state.dataIndicatorCategories }
-											dataIndicators={ this.state.dataIndicators }/></div>
-				          <div className="fdb"><span>Feedback</span></div>
-			        </div>
-		      </div>
-		  );
+		let strings = new LocalizedStrings({
+			fi:{
+				app_title:"Metsämittari",
+				feedback:"Palaute"
+			},
+			en:{
+				app_title:"Forest Indicator Service",
+				feedback:"Feedback"
+			}
+		});
+		
+		strings.setLanguage(reactLocalStorage.get('lang', 'fi'));
 
-  }
+		return (
+			<div className="App">
+				<div className="App-header"><h1 className="App-title">{strings.app_title}</h1>
+					<LangSwitcher toggleLanguage={this.toggleLanguage} lang={this.state.lang} />
+				</div>
+				<div className="App-content">
+					<div className="pad"><Scenario data={this.state.data}
+						dataRegions={this.state.dataRegions}
+						dataScenarioCollection={this.state.dataScenarioCollection}
+						dataScenarios={this.state.dataScenarios}
+						dataTimePeriods={this.state.dataTimePeriods}
+						getRegionData={this.getRegionData}
+						getScenarioCollectionData={this.getScenarioCollectionData}
+						getScenarioData={this.getScenarioData} /></div>
+					<div className="main-scrollable">
+						<div className="main-content"><Graphs /></div>
+					</div>
+					<div className="pad"><Indicator dataIndicatorCategories={this.state.dataIndicatorCategories}
+						dataIndicators={this.state.dataIndicators} /></div>
+					<div className="fdb"><span>{strings.feedback}</span></div>
+				</div>
+			</div>
+		);
+
+	}
 }
 
 export default App;
