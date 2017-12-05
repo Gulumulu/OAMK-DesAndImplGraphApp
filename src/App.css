@@ -37,7 +37,7 @@ body {
     height: auto;
     padding-bottom: 2em;
 }
-.App-content * {
+.App-content > * {
     padding: 1em;
 }
 .App-content .pad {
@@ -52,6 +52,19 @@ body {
 
 .App-intro {
     font-size: large;
+}
+
+.fdb {
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-weight: bold;
+}
+
+span {
+    border: 1px white;
+    border-radius: 5px;
 }
 
 @keyframes App-logo-spin {

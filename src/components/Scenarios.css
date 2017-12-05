@@ -1,16 +1,26 @@
-.col-md-3 {
-    font-size: 15px;
-    color: black;
+@import '../../node_modules/react-selectize/themes/index.css';
+
+.head-s {
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 25px;
+    margin-top: 40px;
 }
 
-.w1 {
-    background-color: green;
+.head1-s {
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 25px;
 }
 
-.w2 {
-    background-color: red;
-}
-
-.w3 {
-    background-color: purple;
+h2.s {
+    font-size: 25px;
+    font-weight: bold;
+    color: #4d4d4d;
+    text-align: center;
+    border-bottom: solid #666 1px;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-bottom: 50px;
+    padding-bottom: 5px;
 }
