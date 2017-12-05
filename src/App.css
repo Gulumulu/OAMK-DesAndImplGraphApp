@@ -1,24 +1,74 @@
+body {
+    background: url("./images/bg-normal.jpg") 100% fixed ;
+    
+}
+#root {
+    height: 100vh;
+}
 .App {
-  text-align: center;
-  width: auto;
+    margin: auto;
+    background: url("./images/bg-blur-frosted.jpg") 100% fixed;
+    display: flex;
+    flex-flow: column;
+    position: relative;
+    width: 90%;
+    height: 100%
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
 }
 
 .App-header {
-  background-color: rgb(141, 214, 243);
-  height: 150px;
-  padding: 20px;
-  color: white;
+    text-align: center;
+    padding: 20px;
+    color: #666;
 }
 
 .App-title {
-  font-size: 1.5em;
+    font-size: 3em;
+}
+
+.App-content {
+    flex: 1;
+    display: flex;
+    position: relative;
+    height: auto;
+    padding-bottom: 2em;
+}
+.App-content > * {
+    padding: 1em;
+}
+.App-content .pad {
+    flex: 1;
+}
+.App-content .main {
+    background: #F5F6F7;
+    min-width: 300px;
+    padding: 0em;
+    flex: 2;
+    border-radius: 10px;
 }
 
 .App-intro {
-  font-size: large;
+    font-size: large;
+}
+
+.fdb {
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-weight: bold;
+}
+
+span {
+    border: 1px white;
+    border-radius: 5px;
+}
+
+@keyframes App-logo-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
