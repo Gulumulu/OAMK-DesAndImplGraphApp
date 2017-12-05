@@ -1,12 +1,11 @@
 html, body, #root {
-    height: 100%;
+    min-height: 100%;
 }
 body {
     background: url("../images/bg-normal.jpg") 100% fixed ;    
 }
 .App {
-    min-width: 900px;
-    overflow: auto;
+    overflow: hidden;
     margin: auto;
     background: url("../images/bg-blur-frosted.jpg") 100% fixed;
     display: flex;
@@ -28,6 +27,11 @@ body {
     font-size: 3em;
 }
 
+.fdb {
+    text-align: right;
+    font-size: 3em;
+}
+
 .App-content {
     flex: 12;
     display: flex;
@@ -36,7 +40,7 @@ body {
     padding-bottom: 2em;
 }
 .App-content > * {
-    padding: 1em;
+    padding: 0em;
 }
 .App-content .pad {
     flex: 1;
@@ -53,7 +57,9 @@ body {
 }
 .main-content {
     overflow-y: auto;
+    overflow-x: hidden;
     height: 100%;
+    width: 100%;
     padding: 2px;
     position: relative;
 }

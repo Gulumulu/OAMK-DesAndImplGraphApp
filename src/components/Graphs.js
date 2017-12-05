@@ -5,9 +5,9 @@ class Graphs extends Component {
     render () {
 
         return (
-            <div className="row">
+            <span>
                 <div className="col-md-3">graphs</div>
-            </div>
+            </span>
         )
 
     }
