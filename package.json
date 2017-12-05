@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "bootstrap": "^3.3.7",
+    "highcharts": "^6.0.3",
     "muicss": "^0.9.30",
     "react": "^16.1.1",
     "react-addons-css-transition-group": "^15.6.0",

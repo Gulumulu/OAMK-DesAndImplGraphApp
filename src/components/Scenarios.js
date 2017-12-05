@@ -5,6 +5,19 @@ import { SimpleSelect, MultiSelect } from 'react-selectize';
 
 class Scenarios extends Component {
 
+    getTimeID(value) {
+        this.props.dataIDs.time = value.value;
+        this.props.displayGraphs();
+    }
+
+    getScenarioID(value) {
+        this.props.dataIDs.scenarios = [];
+        for (var i = 0, iLen = value.length; i < iLen; i++) {
+            this.props.dataIDs.scenarios = (value[i].value);
+        }
+        this.props.displayGraphs();
+    }
+
     render () {
 
         return (
@@ -44,6 +57,7 @@ class Scenarios extends Component {
                 <div className="col-md-12">
                 <MultiSelect placeholder = "Select scenarios"
                             theme="material"
+                            onValuesChange={ value => this.getScenarioID(value) }
                             options = { this.props.dataScenarios.map(
                                 element => ({ label: element.description, value: element.id })
                             )}>
@@ -54,6 +68,7 @@ class Scenarios extends Component {
                 <SimpleSelect placeholder="Select time period"
                             className="sel"
                             theme="material"
+                            onValueChange={ value => this.getTimeID(value) }
                             options = { this.props.dataTimePeriods.map(
                                 element => ({ label: element.yearStart.toString() + " - " + element.yearEnd.toString(), value: element.id })
                             )}>

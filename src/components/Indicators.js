@@ -5,17 +5,34 @@ import { MultiSelect } from 'react-selectize';
 
 class Indicators extends Component {
 
+    getIndicatorID(value) {
+        this.props.dataIDs.indicators = [];
+        for (var i = 0, iLen = value.length; i < iLen; i++) {
+            this.props.dataIDs.indicators = (value[i].value);
+        }
+        this.props.displayGraphs();
+    }
+
     render () {
 
         var showIndicators= [];
+        var def = [];
 
         for (var i = 0, iLen = this.props.dataIndicators.length; i < iLen; i++) {
+/*            if (this.props.dataIndicatorCategories[i].isMandatory === 1) {
+                def.label = this.props.dataIndicatorCategories[i].indicators[0].name;
+                def.value = this.props.dataIndicatorCategories[i].indicators[0].id;
+            }
+            else {
+                def = "";
+            }*/
             showIndicators.push(
                 <div>
                     <p>{ this.props.dataIndicatorCategories[i].name }</p>
                     <MultiSelect placeholder = "Select scenarios"
                                 theme="material"
                                 className="sel"
+                                onValuesChange={ value => this.getIndicatorID(value) }
                                 options = { this.props.dataIndicators[i].map(
                                     element => ({ label: element.name, value: element.id })
                                 )}>
