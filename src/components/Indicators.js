@@ -7,6 +7,14 @@ import LocalizedStrings from 'react-localization';
 
 class Indicators extends Component {
 
+    getIndicatorID(value) {
+        this.props.dataIDs.indicators = [];
+        for (var i = 0, iLen = value.length; i < iLen; i++) {
+            this.props.dataIDs.indicators = (value[i].value);
+        }
+        this.props.displayGraphs();
+    }
+
     render () {
 
         let strings = new LocalizedStrings({
@@ -22,17 +30,17 @@ class Indicators extends Component {
 		
 		strings.setLanguage(reactLocalStorage.get('lang', 'fi'));
 
-        console.log(this.props.dataIndicators);
-
         var showIndicators= [];
-        for (var i = 0, iLen = this.props.dataIndicatorCategories.length; i < iLen; i++) {
+
+        for (var i = 0, iLen = this.props.dataIndicators.length; i < iLen; i++) {
             showIndicators.push(
                 <div>
                     <p>{ this.props.dataIndicatorCategories[i].name }</p>
-                    <MultiSelect placeholder = {strings.select_scenarios}
+                    <MultiSelect placeholder = "Select scenarios"
                                 theme="material"
                                 className="sel"
-                                options = { this.props.dataIndicators.map(
+                                onValuesChange={ value => this.getIndicatorID(value) }
+                                options = { this.props.dataIndicators[i].map(
                                     element => ({ label: element.name, value: element.id })
                                 )}>
                     </MultiSelect>

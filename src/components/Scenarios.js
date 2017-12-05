@@ -7,6 +7,19 @@ import LocalizedStrings from 'react-localization';
 
 class Scenarios extends Component {
 
+    getTimeID(value) {
+        this.props.dataIDs.time = value.value;
+        this.props.displayGraphs();
+    }
+
+    getScenarioID(value) {
+        this.props.dataIDs.scenarios = [];
+        for (var i = 0, iLen = value.length; i < iLen; i++) {
+            this.props.dataIDs.scenarios = (value[i].value);
+        }
+        this.props.displayGraphs();
+    }
+
     render () {
 
         let strings = new LocalizedStrings({
@@ -75,8 +88,9 @@ class Scenarios extends Component {
                 </div>
                 <div className="col-md-12 head-s">{strings.scenarios}</div>
                 <div className="col-md-12">
-                <MultiSelect placeholder = {strings.select_scenarios}
+                <MultiSelect placeholder = "Select scenarios"
                             theme="material"
+                            onValuesChange={ value => this.getScenarioID(value) }
                             options = { this.props.dataScenarios.map(
                                 element => ({ label: element.description, value: element.id })
                             )}>
@@ -84,9 +98,10 @@ class Scenarios extends Component {
                 </div>
                 <div className="col-md-12 head-s">{strings.time_period}</div>
                 <div className="col-sm-12">
-                <SimpleSelect placeholder={strings.select_time_period}
+                <SimpleSelect placeholder="Select time period"
                             className="sel"
                             theme="material"
+                            onValueChange={ value => this.getTimeID(value) }
                             options = { this.props.dataTimePeriods.map(
                                 element => ({ label: element.yearStart.toString() + " - " + element.yearEnd.toString(), value: element.id })
                             )}>
