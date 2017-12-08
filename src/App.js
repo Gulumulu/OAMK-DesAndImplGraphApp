@@ -6,10 +6,8 @@ import Feedback from './views/Feedback';
 import Layout from './Layout';
 import LocalizedStrings from 'react-localization';
 
-import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-
+import './styles/App.css';
 
 class App extends Component {
     render() {
