@@ -6,7 +6,6 @@
     "axios": "^0.17.1",
     "bootstrap": "^3.3.7",
     "muicss": "^0.9.30",
-    "nodemailer": "^4.4.0",
     "react": "^16.1.1",
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-shallow-compare": "^15.6.0",

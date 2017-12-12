@@ -18,6 +18,10 @@ body {
 .navbar {
     margin-bottom: 0 !important;
 }
+textarea {
+    resize: none;
+    height: 10em !important;
+}
 .App-header {
     text-align: center;
     padding: 20px;
@@ -27,7 +31,9 @@ body {
 .App-title {
     font-size: 3em;
 }
-
+.mailto-link {
+    float: right;
+}
 .fdb {
     text-align: right;
     font-size: 3em;
