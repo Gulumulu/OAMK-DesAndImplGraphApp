@@ -28,8 +28,8 @@ const config = {
                     color: 'white'
                 }
             },
-            startAngle: -90,
-            endAngle: 90,
+            startAngle: 0,
+            endAngle: 360,
             center: ['50%', '75%']
         }
     },

@@ -29,6 +29,7 @@
     "react-scripts": "1.0.17",
     "react-select": "^1.1.0",
     "react-selectize": "^3.0.1",
+    "react-tooltip": "^3.4.0",
     "react-transition-group": "^1.2.1",
     "react-transitions": "^1.0.0",
     "reactjs-localstorage": "0.0.5"

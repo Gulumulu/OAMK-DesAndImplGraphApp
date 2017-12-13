@@ -21,10 +21,16 @@ body {
 textarea {
     resize: none;
     height: 10em !important;
+
+.Lang-switcher {
+    float: left;
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 20px;
 }
 .App-header {
     text-align: center;
-    padding: 20px;
+    padding-bottom: 20px;
     color: #666;
 }
 
@@ -93,8 +99,11 @@ textarea {
         border-radius: none !important;
     }
 }
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
     .App {
         width: 100% !important;
+    }
+    .App-content {
+        flex-flow: column;
     }
 }

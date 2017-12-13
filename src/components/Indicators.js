@@ -12,7 +12,7 @@ class Indicators extends Component {
         for (var i = 0, iLen = value.length; i < iLen; i++) {
             this.props.dataIDs.indicators = (value[i].value);
         }
-        this.props.displayGraphs();
+        //this.props.displayGraphs();
     }
 
     render () {

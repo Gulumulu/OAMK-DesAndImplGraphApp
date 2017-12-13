@@ -7,58 +7,60 @@ import Graphs from '../components/Graphs';
 import DataView from '../components/DataView';
 import LangSwitcher from '../components/LangSwitcher';
 import forestData from '../data/ForestData';
+import LocalizedStrings from 'react-localization';
+import ReactTooltip from 'react-tooltip'
 
 import '../styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-class Main extends Component {    
-	  constructor(props){
-		    super(props)
+class Main extends Component {
+	constructor(props) {
+		super(props)
 
-		    this.state = {
-			      lang: reactLocalStorage.get('lang', 'fi'),
-			      data: [],
-				  dataRegions: [],
-				  dataScenarioCollection: [],
-				  dataScenarios: [],
-				  dataTimePeriods: [],
-				  dataIndicatorCategories: [],
-				  dataIndicators: [],
-				  dataValues: [],
-				  dataIDs: [{
-					  scenarios: "",
-					  time: "",
-					  indicators: "",
-				  }],
-				  finalData: [],
-				  regID: "",
-		    }
+		this.state = {
+			lang: reactLocalStorage.get('lang', 'fi'),
+			data: [],
+			dataRegions: [],
+			dataScenarioCollection: [],
+			dataScenarios: [],
+			dataTimePeriods: [],
+			dataIndicatorCategories: [],
+			dataIndicators: [],
+			dataValues: [],
+			dataIDs: [{
+				scenarios: "",
+				time: "",
+				indicators: "",
+			}],
+			finalData: [],
+			regID: "",
+		}
 
-		    this.getRegionData = this.getRegionData.bind(this);
-		    this.getScenarioCollectionData = this.getScenarioCollectionData.bind(this);
-		    this.getScenarioData = this.getScenarioData.bind(this);
-		    this.displayGraphs = this.displayGraphs.bind(this);
-		    this.toggleLanguage = this.toggleLanguage.bind(this);
-	  }
+		this.getRegionData = this.getRegionData.bind(this);
+		this.getScenarioCollectionData = this.getScenarioCollectionData.bind(this);
+		this.getScenarioData = this.getScenarioData.bind(this);
+		this.displayGraphs = this.displayGraphs.bind(this);
+		this.toggleLanguage = this.toggleLanguage.bind(this);
+	}
 
 	toggleLanguage() {
 		if (this.state.lang === 'fi') {
-		    this.setState({ lang: 'en' })
-		    reactLocalStorage.set('lang', 'en');
+			this.setState({ lang: 'en' })
+			reactLocalStorage.set('lang', 'en');
 		} else if (this.state.lang === 'en') {
-		    this.setState({ lang: 'fi' })
-		    reactLocalStorage.set('lang', 'fi');
+			this.setState({ lang: 'fi' })
+			reactLocalStorage.set('lang', 'fi');
 		} else {
-		    this.setState({ lang: 'fi' })
-		    reactLocalStorage.set('lang', 'fi');
+			this.setState({ lang: 'fi' })
+			reactLocalStorage.set('lang', 'fi');
 		}
 		forestData.getRegionLevels().then(result => {
-		    this.setState({ data: result });
+			this.setState({ data: result });
 		});
 	}
 
 	getRegionData(regionLevelData) {
-		if (regionLevelData === undefined ) {
+		if (regionLevelData === undefined) {
 			return;
 		}
 		else {
@@ -69,7 +71,7 @@ class Main extends Component {
 	}
 
 	getScenarioCollectionData(regionData) {
-		if (regionData === undefined ) {
+		if (regionData === undefined) {
 			return;
 		}
 		else {
@@ -83,7 +85,7 @@ class Main extends Component {
 	}
 
 	getScenarioData(sceCol) {
-		var tmpArr= [];
+		var tmpArr = [];
 		if (sceCol === undefined || this.state.regID === undefined) {
 			return;
 		}
@@ -93,11 +95,13 @@ class Main extends Component {
 					for (var j = 0, jLen = result[i].indicatorCategories.length; j < jLen; j++) {
 						tmpArr.push(result[i].indicatorCategories[j].indicators);
 					}
-					this.setState({ dataScenarios: result[i].scenarios,
-									dataTimePeriods: result[i].timePeriods,
-									dataIndicatorCategories: result[i].indicatorCategories,
-									dataIndicators: tmpArr,
-									dataValues: result[i].values });
+					this.setState({
+						dataScenarios: result[i].scenarios,
+						dataTimePeriods: result[i].timePeriods,
+						dataIndicatorCategories: result[i].indicatorCategories,
+						dataIndicators: tmpArr,
+						dataValues: result[i].values
+					});
 					tmpArr = [];
 				};
 			})
@@ -105,8 +109,8 @@ class Main extends Component {
 	}
 
 	displayGraphs() {
-		var filter = {scenarioId: this.state.dataIDs.scenarios, indicatorId: this.state.dataIDs.indicators, timePeriodId: this.state.dataIDs.time};
-		this.state.finalData.push(this.state.dataValues.filter(function(item) {
+		var filter = { scenarioId: this.state.dataIDs.scenarios, indicatorId: this.state.dataIDs.indicators, timePeriodId: this.state.dataIDs.time };
+		this.state.finalData.push(this.state.dataValues.filter(function (item) {
 			for (var key in filter) {
 				if (item[key] === undefined || item[key] !== filter[key])
 					return false;
@@ -119,7 +123,7 @@ class Main extends Component {
 				this.setState(this.state.finalData[i]);
 			}
 			else {
-				this.state.finalData.splice(0,1);
+				this.state.finalData.splice(0, 1);
 			}
 		}
 		console.log(this.state.finalData);
@@ -131,37 +135,58 @@ class Main extends Component {
 		});
 	}
 
-    render() {
-        return (
-		        <div className="App">
-			          <div className="App-header"><h1 className="App-title">Forest Scenario Indicator</h1>
-			              <LangSwitcher toggleLanguage={this.toggleLanguage} lang={this.state.lang}/>
-			          </div>
-			          <div className="App-content">
-					  <div className="pad"><Scenario data={ this.state.data }
-												dataRegions={ this.state.dataRegions }
-												dataScenarioCollection={ this.state.dataScenarioCollection }
-												dataScenarios={ this.state.dataScenarios }
-												dataTimePeriods={ this.state.dataTimePeriods }
-												dataIDs={ this.state.dataIDs }
-												getRegionData={ this.getRegionData }
-												getScenarioCollectionData={ this.getScenarioCollectionData }
-												getScenarioData={ this.getScenarioData }
-												displayGraphs={ this.displayGraphs }/></div>
-                    <div className="main-scrollable">
-						<div className="main"><DataView finalData={ this.state.finalData }/></div>
-                    </div>
-					<div className="pad"><Indicator dataIndicatorCategories={ this.state.dataIndicatorCategories }
-												dataIndicators={ this.state.dataIndicators }
-												dataIDs={ this.state.dataIDs }
-												displayGraphs={ this.displayGraphs }/></div>
-			        </div>
-				    <div className="fdb">
-                    	<Link to="/feedback">Feedback</Link>
-                	</div>
-		        </div>
-    	  );
-    }
+	render() {
+
+		let strings = new LocalizedStrings({
+			fi: {
+				app_title: "Metsämittari",
+				lang_switch: "Vaihda kieltä",
+				feedback: "Palaute"
+			},
+			en: {
+				app_title: "Forest Scenario Indicator",
+				lang_switch: "Change language",
+				feedback: "Feedback"
+			}
+		});
+
+		strings.setLanguage(reactLocalStorage.get('lang', 'fi'));
+
+
+		return (
+			<div className="App">
+				<div className="Lang-switcher">
+					<a data-tip={strings.lang_switch}><LangSwitcher toggleLanguage={this.toggleLanguage} lang={this.state.lang} /></a>
+					<ReactTooltip place="top" type="dark" effect="float" />
+				</div>
+				<div className="App-header"><h1 className="App-title">{strings.app_title}</h1>
+				</div>
+				<div className="App-content">
+					<div className="pad"><Scenario data={this.state.data}
+						dataRegions={this.state.dataRegions}
+						dataScenarioCollection={this.state.dataScenarioCollection}
+						dataScenarios={this.state.dataScenarios}
+						dataTimePeriods={this.state.dataTimePeriods}
+						dataIDs={this.state.dataIDs}
+						getRegionData={this.getRegionData}
+						getScenarioCollectionData={this.getScenarioCollectionData}
+						getScenarioData={this.getScenarioData}
+						displayGraphs={this.displayGraphs} /></div>
+					<div className="main-scrollable">
+						<div className="main"><DataView finalData={this.state.finalData} /></div>
+					</div>
+					<div className="pad"><Indicator dataIndicatorCategories={this.state.dataIndicatorCategories}
+						dataIndicators={this.state.dataIndicators}
+						dataIDs={this.state.dataIDs}
+						displayGraphs={this.displayGraphs} /></div>
+				</div>
+				<div className="fdb">
+
+					<Link to="/feedback">{strings.feedback}</Link>
+				</div>
+			</div>
+		);
+	}
 }
 
 export default Main;
