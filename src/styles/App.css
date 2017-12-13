@@ -17,11 +17,14 @@ body {
 }
 .navbar {
     margin-bottom: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: 0px -5px 5px 5px black;
+    z-index: 1;
 }
 textarea {
     resize: none;
     height: 10em !important;
-
+}
 .Lang-switcher {
     float: left;
     text-align: right;
@@ -42,7 +45,7 @@ textarea {
 }
 .fdb {
     text-align: right;
-    font-size: 3em;
+    font-size: 1.25em;
 }
 
 .App-content {
@@ -83,27 +86,51 @@ textarea {
 
 /*Media tags*/
 @media print {
+    * {
+        background-color: transparent !important;
+        border-radius: none !important;
+        border: 0 solid transparent !important;
+    }
     body {
         height: 297mm;
         width: 210mm;
     }
-    .App-content > * {
+    .pad, .Lang-switcher, .fbd, .navbar
+    {
         display: none !important;
     }
     .main-scrollable {
         width: 100% !important;
         height: 100% !important;
-        border: 0px solid transparent !important;
         padding: none !important;
         margin: none !important;
         border-radius: none !important;
     }
 }
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1280px) {
     .App {
         width: 100% !important;
     }
     .App-content {
-        flex-flow: column;
+        flex-flow: row wrap;
+    }
+    .pad {
+        flex: 1 50% !important;
+        order: -1;
+    }
+    .main-scrollable {
+        flex: 1 100% !important;
+        order: 1;
+        border-radius: 0 !important;
+        margin-top: 1em;
+    }
+}
+@media screen and (max-width: 640px) {
+
+    .App-content {
+        flex-flow: column nowrap;
+    }
+    .pad {
+        flex: 1 100% !important;  
     }
 }

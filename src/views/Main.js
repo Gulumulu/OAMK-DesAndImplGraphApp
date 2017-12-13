@@ -182,7 +182,7 @@ class Main extends Component {
 				</div>
 				<div className="fdb">
 
-					<Link to="/feedback">{strings.feedback}</Link>
+					  <span>{strings.feedback}: <a to="mailto:metsamittari@luke.fi">metsamittari@luke.fi</a></span>
 				</div>
 			</div>
 		);
