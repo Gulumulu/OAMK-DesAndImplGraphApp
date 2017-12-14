@@ -4,9 +4,9 @@ class LangSwitcher extends Component {
 
     render() {
         return (
-            <span>
+            <div>
                 <img src={require('../' + this.props.lang + '.png')} onClick={this.props.toggleLanguage}/>
-            </span>
+            </div>
         )
     }
 }

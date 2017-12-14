@@ -4,7 +4,7 @@ import Header from './components/Header';
 class Layout extends Component {
     render() {
         return (
-            <div className="Layout">
+            <div classname="Layout">
                 <Header />
                 {this.props.children}
             </div>

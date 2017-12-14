@@ -1,5 +1,5 @@
-html, body, #root, .Layout {
-    min-height: 100vh;
+html, body, #root {
+    min-height: 100%;
 }
 body {
     background: url("../images/bg-normal.jpg") 100% fixed ;    
@@ -12,55 +12,38 @@ body {
     flex-flow: column;
     position: relative;
     width: 90%;
-    flex: 1;
+    max-height: 100%;
+    height: 100%;
     transition: all 1s;
 }
-.navbar {
-    margin-bottom: 0 !important;
-}
-textarea {
-    resize: none;
-    height: 10em !important;
 
-.Lang-switcher {
-    float: left;
-    text-align: right;
-    padding-top: 10px;
-    padding-right: 20px;
-}
 .App-header {
     text-align: center;
-    padding-bottom: 20px;
+    padding: 20px;
     color: #666;
 }
 
 .App-title {
     font-size: 3em;
 }
-.mailto-link {
-    float: right;
-}
+
 .fdb {
     text-align: right;
     font-size: 3em;
 }
 
 .App-content {
-    flex: 1;
+    flex: 12;
     display: flex;
     position: relative;
     min-height: 0;
     padding-bottom: 2em;
 }
-.row {
-    margin: 0 !important;
-}
-.Layout {
-    display: flex;
-    flex-flow: column;
+.App-content > * {
+    padding: 0em;
 }
 .App-content .pad {
-    flex: 1 1 100px;
+    flex: 1;
     position: relative;
 }
 .App-content .main-scrollable {
@@ -87,7 +70,7 @@ textarea {
         height: 297mm;
         width: 210mm;
     }
-    .App-content > * {
+    .pad, button {
         display: none !important;
     }
     .main-scrollable {
@@ -99,11 +82,8 @@ textarea {
         border-radius: none !important;
     }
 }
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1000px) {
     .App {
         width: 100% !important;
-    }
-    .App-content {
-        flex-flow: column;
     }
 }

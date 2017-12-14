@@ -9,14 +9,15 @@ class Scenarios extends Component {
 
     getTimeID(value) {
         this.props.dataIDs.time = value.value;
+        this.props.dataIDs.boolT = true;
         this.props.displayGraphs();
     }
 
     getScenarioID(value) {
-        this.props.dataIDs.scenarios = [];
         for (var i = 0, iLen = value.length; i < iLen; i++) {
-            this.props.dataIDs.scenarios = (value[i].value);
+            this.props.dataIDs.scenarios.push(value[i].value);
         }
+        this.props.dataIDs.boolS = true;
         this.props.displayGraphs();
     }
 
@@ -51,7 +52,7 @@ class Scenarios extends Component {
 			}
 		});
 		
-		strings.setLanguage(reactLocalStorage.get('lang', 'fi'));
+        strings.setLanguage(reactLocalStorage.get('lang', 'fi'));
 
         return (
             <div className="row">
