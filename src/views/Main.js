@@ -66,6 +66,7 @@ class Main extends Component {
 		forestData.getRegionLevels().then(result => {
 			this.setState({ data: result });
 		});
+		window.location.reload(false);
 	}
 
 	// fetch the upper level data == REGIONS
