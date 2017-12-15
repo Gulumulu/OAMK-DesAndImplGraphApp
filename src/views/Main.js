@@ -9,6 +9,7 @@ import LangSwitcher from '../components/LangSwitcher';
 import forestData from '../data/ForestData';
 import LocalizedStrings from 'react-localization';
 import ReactTooltip from 'react-tooltip'
+import Printer from '../components/Printer';
 
 import '../styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -181,8 +182,8 @@ class Main extends Component {
 						displayGraphs={this.displayGraphs} /></div>
 				</div>
 				<div className="fdb">
-
-					  <span>{strings.feedback}: <a to="mailto:metsamittari@luke.fi">metsamittari@luke.fi</a></span>
+            <Printer className="btn btn-default">Perkele</Printer>
+					  <span>{strings.feedback}: <a href="mailto:metsamittari@luke.fi">metsamittari@luke.fi</a></span>
 				</div>
 			</div>
 		);
