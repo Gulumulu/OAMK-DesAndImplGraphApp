@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Text, TextArea } from 'react-form';
+import { reactLocalStorage } from 'reactjs-localstorage';
 import LocalizedStrings from 'react-localization';
 
 class Feedback extends Component {
@@ -55,6 +56,7 @@ class Feedback extends Component {
                 error: "ERROR! This feature is not yet finished! Send your message straight to this address: metsamittari@luke.fi"
             }
         });
+        strings.setLanguage(reactLocalStorage.get('lang', 'fi'));
         
         if (this.state.type && this.state.message) {
             var classString = 'alert alert-' + this.state.type;
