@@ -96,7 +96,7 @@ textarea {
         height: 297mm;
         width: 210mm;
     }
-    .pad, .Lang-switcher, .fbd, .navbar
+    .pad, .Lang-switcher, .fdb, .navbar, .btns
     {
         display: none !important;
     }
