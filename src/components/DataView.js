@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import '../styles/DataView.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Printer from '../components/Printer';
 const ReactHighcharts = require('react-highcharts');
 
 class DataView extends Component {
@@ -186,6 +187,7 @@ class DataView extends Component {
                     <button type="button" className="btn btn-default" aria-label="Left Align" onClick={ this.showTable }>
                         <span className="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                     </button>
+                    <Printer className="btn btn-default"><span className="glyphicon glyphicon-print" aria-hidden="true"></span></Printer>
                 </div>
                 <div className="tbl" id="tbl" key="tbl">
                     {this.state.table}

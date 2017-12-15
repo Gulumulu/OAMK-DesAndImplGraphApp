@@ -92,8 +92,8 @@ textarea {
         border-radius: none !important;
         border: 0 solid transparent !important;
     }
-    body {
-        height: 297mm;
+    html, body, #root, .Layout {
+        height: 270mm;
         width: 210mm;
     }
     .pad, .Lang-switcher, .fdb, .navbar, .btns
