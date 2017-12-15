@@ -43,7 +43,7 @@ class Feedback extends Component {
                 body: "Viesti",
                 submit: "Lähetä",
                 info: "Lähetetään palautetta...",
-                error: "VIRHE! Tätä ominaisuus ei ole vielä valmis! Lähetä viesti suoraan osoitteeseen: metsamittari@luke.fi"
+                error: "VIRHE! Tämä ominaisuus ei ole vielä valmis! Lähetä viesti suoraan osoitteeseen: metsamittari@luke.fi"
             },
             en: {
                 feedback: "Feedback",

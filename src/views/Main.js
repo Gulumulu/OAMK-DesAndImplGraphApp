@@ -208,8 +208,7 @@ class Main extends Component {
 		return (
 			<div className="App">
 				<div className="Lang-switcher">
-					<a data-tip={strings.lang_switch}><LangSwitcher toggleLanguage={this.toggleLanguage} lang={this.state.lang} /></a>
-					<ReactTooltip place="top" type="dark" effect="float" />
+					<LangSwitcher toggleLanguage={this.toggleLanguage} lang={this.state.lang} />
 				</div>
 				<div className="App-header"><h1 className="App-title">{strings.app_title}</h1>
 				</div>
