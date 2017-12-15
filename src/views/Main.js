@@ -182,7 +182,7 @@ class Main extends Component {
 						displayGraphs={this.displayGraphs} /></div>
 				</div>
 				<div className="fdb">
-            <Printer className="btn btn-default">Perkele</Printer>
+            <Printer className="btn btn-default">PRINT</Printer>
 					  <span>{strings.feedback}: <a href="mailto:metsamittari@luke.fi">metsamittari@luke.fi</a></span>
 				</div>
 			</div>
