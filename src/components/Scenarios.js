@@ -6,18 +6,13 @@ import { SimpleSelect, MultiSelect } from 'react-selectize';
 import LocalizedStrings from 'react-localization';
 
 class Scenarios extends Component {
-
+    
     getTimeID(value) {
-        this.props.dataIDs.time = value.value;
-        this.props.displayGraphs();
+        this.props.timePeriodsSelected(value);
     }
 
     getScenarioID(value) {
-        this.props.dataIDs.scenarios = [];
-        for (var i = 0, iLen = value.length; i < iLen; i++) {
-            this.props.dataIDs.scenarios = (value[i].value);
-        }
-        this.props.displayGraphs();
+        this.props.scenariosSelected(value);
     }
 
     render () {
@@ -51,7 +46,7 @@ class Scenarios extends Component {
 			}
 		});
 		
-		strings.setLanguage(reactLocalStorage.get('lang', 'fi'));
+        strings.setLanguage(reactLocalStorage.get('lang', 'fi'));
 
         return (
             <div className="row">
@@ -88,17 +83,17 @@ class Scenarios extends Component {
                 </div>
                 <div className="col-md-12 head-s">{strings.scenarios}</div>
                 <div className="col-md-12">
-                <MultiSelect placeholder = "Select scenarios"
+                <MultiSelect placeholder={strings.select_scenarios}
                             theme="material"
                             onValuesChange={ value => this.getScenarioID(value) }
                             options = { this.props.dataScenarios.map(
-                                element => ({ label: element.description, value: element.id })
+                                element => ({ label: element.name, value: element.id })
                             )}>
                 </MultiSelect>
                 </div>
                 <div className="col-md-12 head-s">{strings.time_period}</div>
                 <div className="col-sm-12">
-                <SimpleSelect placeholder="Select time period"
+                <SimpleSelect placeholder={strings.select_time_period}
                             className="sel"
                             theme="material"
                             onValueChange={ value => this.getTimeID(value) }

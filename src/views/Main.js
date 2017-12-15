@@ -3,7 +3,6 @@ import { reactLocalStorage } from 'reactjs-localstorage';
 import { Link } from 'react-router-dom';
 import Indicator from '../components/Indicators';
 import Scenario from '../components/Scenarios';
-import Graphs from '../components/Graphs';
 import DataView from '../components/DataView';
 import LangSwitcher from '../components/LangSwitcher';
 import forestData from '../data/ForestData';
@@ -11,8 +10,9 @@ import forestData from '../data/ForestData';
 import '../styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-class Main extends Component {    
-	  constructor(props){
+class Main extends Component {
+
+	  constructor(props) {
 		    super(props)
 
 		    this.state = {
@@ -29,16 +29,26 @@ class Main extends Component {
 					  scenarios: "",
 					  time: "",
 					  indicators: "",
+					  boolT: false,
+					  boolS: false,
+					  boolI: false
 				  }],
 				  finalData: [],
 				  regID: "",
+				  filterStart: false
 		    }
 
 		    this.getRegionData = this.getRegionData.bind(this);
 		    this.getScenarioCollectionData = this.getScenarioCollectionData.bind(this);
 		    this.getScenarioData = this.getScenarioData.bind(this);
-		    this.displayGraphs = this.displayGraphs.bind(this);
-		    this.toggleLanguage = this.toggleLanguage.bind(this);
+			this.displayGraphs = this.displayGraphs.bind(this);
+			this.toggleLanguage = this.toggleLanguage.bind(this);
+			this.scenariosSelected = this.scenariosSelected.bind(this);
+			this.indicatorsSelected = this.indicatorsSelected.bind(this);
+			this.timePeriodsSelected = this.timePeriodsSelected.bind(this);
+			
+			this.state.dataIDs.indicators = [];
+			this.state.dataIDs.scenarios = [];
 	  }
 
 	toggleLanguage() {
@@ -57,6 +67,7 @@ class Main extends Component {
 		});
 	}
 
+	// fetch the upper level data == REGIONS
 	getRegionData(regionLevelData) {
 		if (regionLevelData === undefined ) {
 			return;
@@ -68,6 +79,7 @@ class Main extends Component {
 		}
 	}
 
+	// fetch the middle level data == SCENARIO COLLECTIONS
 	getScenarioCollectionData(regionData) {
 		if (regionData === undefined ) {
 			return;
@@ -82,6 +94,7 @@ class Main extends Component {
 		}
 	}
 
+	// fetch the lower level data == SCENARIOS, TIME PERIODS, INDICATOR CATEGORIES, INDICATORS, VALUES
 	getScenarioData(sceCol) {
 		var tmpArr= [];
 		if (sceCol === undefined || this.state.regID === undefined) {
@@ -104,27 +117,67 @@ class Main extends Component {
 		}
 	}
 
-	displayGraphs() {
-		var filter = {scenarioId: this.state.dataIDs.scenarios, indicatorId: this.state.dataIDs.indicators, timePeriodId: this.state.dataIDs.time};
-		this.state.finalData.push(this.state.dataValues.filter(function(item) {
-			for (var key in filter) {
-				if (item[key] === undefined || item[key] !== filter[key])
-					return false;
-			}
-			return true;
-		}));
+	scenariosSelected(scenarios) {
+		for (var i = 0, iLen = scenarios.length; i < iLen; i++) {
+			this.state.dataIDs.scenarios.push(scenarios[i].value);
+        }
+		this.state.dataIDs.boolS = true;
 
-		for (var i = 0, iLen = this.state.finalData.length; i < iLen; i++) {
-			if (typeof this.state.finalData[i][0] !== 'undefined') {
-				this.setState(this.state.finalData[i]);
-			}
-			else {
-				this.state.finalData.splice(0,1);
-			}
-		}
-		console.log(this.state.finalData);
+    	for (var i = 0, iLen = this.state.dataIndicators.length; i < iLen; i++) {
+            if (this.state.dataIndicatorCategories[i].isMandatory === 1) {
+                var def = [{
+                    label: "",
+                    value: ""
+                }];
+                def[0].label = this.state.dataIndicators[i][0].name;
+                def[0].value = this.state.dataIndicators[i][0].id;
+                this.indicatorsSelected(def);
+            }
+        }
+		def = [];
+		
+		this.displayGraphs();
 	}
 
+	timePeriodsSelected(time) {
+		this.state.dataIDs.time = time.value;
+		this.state.dataIDs.boolT = true;
+
+		this.displayGraphs();
+	}
+
+	indicatorsSelected(indicators) {
+		for (var i = 0, iLen = indicators.length; i < iLen; i++) {
+            this.state.dataIDs.indicators.push(indicators[i].value);
+        }
+		this.state.dataIDs.boolI = true;
+
+		this.displayGraphs();
+	}
+
+	// filter values based on selected indicators, scenarios and time period
+	displayGraphs() {
+		var filter = {scenarioId: this.state.dataIDs.scenarios, indicatorId: this.state.dataIDs.indicators, timePeriodId: this.state.dataIDs.time};
+		var filteredData = [];
+		
+		if (this.state.dataIDs.boolI === true && this.state.dataIDs.boolS === true && this.state.dataIDs.boolT === true) {
+			filteredData = (this.state.dataValues.filter(item => {
+				if (item.timePeriodId !== filter.timePeriodId) { 
+					return false;
+				}
+				if (!filter.scenarioId.includes(item.scenarioId)) {
+					return false
+				}
+				if (!filter.indicatorId.includes(item.indicatorId)) {
+					return false
+				}
+				return true;
+			}));
+			this.setState({ finalData : filteredData });
+		}
+	}
+
+	// fetch region levels when the site is loaded
 	componentDidMount() {
 		forestData.getRegionLevels().then(result => {
 			this.setState({ data: result });
@@ -147,13 +200,20 @@ class Main extends Component {
 												getRegionData={ this.getRegionData }
 												getScenarioCollectionData={ this.getScenarioCollectionData }
 												getScenarioData={ this.getScenarioData }
+												scenariosSelected={ this.scenariosSelected }
+												timePeriodsSelected={ this.timePeriodsSelected }
 												displayGraphs={ this.displayGraphs }/></div>
                     <div className="main-scrollable">
-						<div className="main"><DataView finalData={ this.state.finalData }/></div>
+						<div className="main"><DataView finalData={ this.state.finalData }
+												dataScenarios={ this.state.dataScenarios }
+												dataTimePeriods={ this.state.dataTimePeriods }
+												dataIndicators={ this.state.dataIndicators }
+												dataIDs={ this.state.dataIDs }/></div>
                     </div>
 					<div className="pad"><Indicator dataIndicatorCategories={ this.state.dataIndicatorCategories }
 												dataIndicators={ this.state.dataIndicators }
 												dataIDs={ this.state.dataIDs }
+												indicatorsSelected={ this.indicatorsSelected }
 												displayGraphs={ this.displayGraphs }/></div>
 			        </div>
 				    <div className="fdb">
