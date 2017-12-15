@@ -8,7 +8,6 @@ import DataView from '../components/DataView';
 import LangSwitcher from '../components/LangSwitcher';
 import forestData from '../data/ForestData';
 import LocalizedStrings from 'react-localization';
-import ReactTooltip from 'react-tooltip'
 
 import '../styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -57,6 +56,7 @@ class Main extends Component {
 		forestData.getRegionLevels().then(result => {
 			this.setState({ data: result });
 		});
+		window.location.reload(false);
 	}
 
 	getRegionData(regionLevelData) {
@@ -140,12 +140,10 @@ class Main extends Component {
 		let strings = new LocalizedStrings({
 			fi: {
 				app_title: "Metsämittari",
-				lang_switch: "Vaihda kieltä",
 				feedback: "Palaute"
 			},
 			en: {
 				app_title: "Forest Scenario Indicator",
-				lang_switch: "Change language",
 				feedback: "Feedback"
 			}
 		});
@@ -156,8 +154,7 @@ class Main extends Component {
 		return (
 			<div className="App">
 				<div className="Lang-switcher">
-					<a data-tip={strings.lang_switch}><LangSwitcher toggleLanguage={this.toggleLanguage} lang={this.state.lang} /></a>
-					<ReactTooltip place="top" type="dark" effect="float" />
+					<LangSwitcher toggleLanguage={this.toggleLanguage} lang={this.state.lang} />
 				</div>
 				<div className="App-header"><h1 className="App-title">{strings.app_title}</h1>
 				</div>

@@ -48,7 +48,7 @@ function getScenarios(scenarioCollectionId, regionId){
         axios.get("https://melatupa.azurewebsites.net/scenarioCollection/"+ String(scenarioCollectionId) +"/region/"+ String(regionId),{ headers: { 'Accept-Language': reactLocalStorage.get('lang', 'fi') } })
             .then(results => {
                 const scenarios = results.data.map(element => {
-                    return element;;
+                    return element;
                 });
                 // console.log(scenarioCollection);
                 resolve(scenarios);
