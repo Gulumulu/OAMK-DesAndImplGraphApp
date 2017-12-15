@@ -12,7 +12,7 @@ body {
     flex-flow: column;
     position: relative;
     width: 90%;
-    height: 100%
+    flex: 1;
 }
 
 .App-logo {
@@ -62,7 +62,10 @@ body {
     right: 0;
     font-weight: bold;
 }
-
+.Layout {
+    display: flex;
+    flex-flow: row;
+}
 span {
     border: 1px white;
     border-radius: 5px;

@@ -6,70 +6,71 @@ import Scenario from '../components/Scenarios';
 import DataView from '../components/DataView';
 import LangSwitcher from '../components/LangSwitcher';
 import forestData from '../data/ForestData';
+import LocalizedStrings from 'react-localization';
+import ReactTooltip from 'react-tooltip'
+import Printer from '../components/Printer';
 
 import '../styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Main extends Component {
+	constructor(props) {
+		super(props)
 
-	  constructor(props) {
-		    super(props)
+		this.state = {
+			lang: reactLocalStorage.get('lang', 'fi'),
+			data: [],
+			dataRegions: [],
+			dataScenarioCollection: [],
+			dataScenarios: [],
+			dataTimePeriods: [],
+			dataIndicatorCategories: [],
+			dataIndicators: [],
+			dataValues: [],
+			dataIDs: [{
+				scenarios: "",
+				time: "",
+				indicators: "",
+				boolT: false,
+				boolS: false,
+				boolI: false
+			}],
+			finalData: [],
+			regID: "",
+		}
 
-		    this.state = {
-			      lang: reactLocalStorage.get('lang', 'fi'),
-			      data: [],
-				  dataRegions: [],
-				  dataScenarioCollection: [],
-				  dataScenarios: [],
-				  dataTimePeriods: [],
-				  dataIndicatorCategories: [],
-				  dataIndicators: [],
-				  dataValues: [],
-				  dataIDs: [{
-					  scenarios: "",
-					  time: "",
-					  indicators: "",
-					  boolT: false,
-					  boolS: false,
-					  boolI: false
-				  }],
-				  finalData: [],
-				  regID: "",
-				  filterStart: false
-		    }
+		this.getRegionData = this.getRegionData.bind(this);
+		this.getScenarioCollectionData = this.getScenarioCollectionData.bind(this);
+		this.getScenarioData = this.getScenarioData.bind(this);
+		this.displayGraphs = this.displayGraphs.bind(this);
+		this.toggleLanguage = this.toggleLanguage.bind(this);
+		this.scenariosSelected = this.scenariosSelected.bind(this);
+		this.indicatorsSelected = this.indicatorsSelected.bind(this);
+		this.timePeriodsSelected = this.timePeriodsSelected.bind(this);
 
-		    this.getRegionData = this.getRegionData.bind(this);
-		    this.getScenarioCollectionData = this.getScenarioCollectionData.bind(this);
-		    this.getScenarioData = this.getScenarioData.bind(this);
-			this.displayGraphs = this.displayGraphs.bind(this);
-			this.toggleLanguage = this.toggleLanguage.bind(this);
-			this.scenariosSelected = this.scenariosSelected.bind(this);
-			this.indicatorsSelected = this.indicatorsSelected.bind(this);
-			this.timePeriodsSelected = this.timePeriodsSelected.bind(this);
-			
-			this.state.dataIDs.indicators = [];
-			this.state.dataIDs.scenarios = [];
-	  }
+		this.state.dataIDs.indicators = [];
+		this.state.dataIDs.scenarios = [];
+	}
 
 	toggleLanguage() {
 		if (this.state.lang === 'fi') {
-		    this.setState({ lang: 'en' })
-		    reactLocalStorage.set('lang', 'en');
+			this.setState({ lang: 'en' })
+			reactLocalStorage.set('lang', 'en');
 		} else if (this.state.lang === 'en') {
-		    this.setState({ lang: 'fi' })
-		    reactLocalStorage.set('lang', 'fi');
+			this.setState({ lang: 'fi' })
+			reactLocalStorage.set('lang', 'fi');
 		} else {
-		    this.setState({ lang: 'fi' })
-		    reactLocalStorage.set('lang', 'fi');
+			this.setState({ lang: 'fi' })
+			reactLocalStorage.set('lang', 'fi');
 		}
 		forestData.getRegionLevels().then(result => {
-		    this.setState({ data: result });
+			this.setState({ data: result });
 		});
 	}
 
 	// fetch the upper level data == REGIONS
 	getRegionData(regionLevelData) {
-		if (regionLevelData === undefined ) {
+		if (regionLevelData === undefined) {
 			return;
 		}
 		else {
@@ -81,7 +82,7 @@ class Main extends Component {
 
 	// fetch the middle level data == SCENARIO COLLECTIONS
 	getScenarioCollectionData(regionData) {
-		if (regionData === undefined ) {
+		if (regionData === undefined) {
 			return;
 		}
 		else {
@@ -96,7 +97,7 @@ class Main extends Component {
 
 	// fetch the lower level data == SCENARIOS, TIME PERIODS, INDICATOR CATEGORIES, INDICATORS, VALUES
 	getScenarioData(sceCol) {
-		var tmpArr= [];
+		var tmpArr = [];
 		if (sceCol === undefined || this.state.regID === undefined) {
 			return;
 		}
@@ -106,11 +107,13 @@ class Main extends Component {
 					for (var j = 0, jLen = result[i].indicatorCategories.length; j < jLen; j++) {
 						tmpArr.push(result[i].indicatorCategories[j].indicators);
 					}
-					this.setState({ dataScenarios: result[i].scenarios,
-									dataTimePeriods: result[i].timePeriods,
-									dataIndicatorCategories: result[i].indicatorCategories,
-									dataIndicators: tmpArr,
-									dataValues: result[i].values });
+					this.setState({
+						dataScenarios: result[i].scenarios,
+						dataTimePeriods: result[i].timePeriods,
+						dataIndicatorCategories: result[i].indicatorCategories,
+						dataIndicators: tmpArr,
+						dataValues: result[i].values
+					});
 					tmpArr = [];
 				};
 			})
@@ -184,44 +187,65 @@ class Main extends Component {
 		});
 	}
 
-    render() {
-        return (
-		        <div className="App">
-			          <div className="App-header"><h1 className="App-title">Forest Scenario Indicator</h1>
-			              <LangSwitcher toggleLanguage={this.toggleLanguage} lang={this.state.lang}/>
-			          </div>
-			          <div className="App-content">
-					  <div className="pad"><Scenario data={ this.state.data }
-												dataRegions={ this.state.dataRegions }
-												dataScenarioCollection={ this.state.dataScenarioCollection }
-												dataScenarios={ this.state.dataScenarios }
-												dataTimePeriods={ this.state.dataTimePeriods }
-												dataIDs={ this.state.dataIDs }
-												getRegionData={ this.getRegionData }
-												getScenarioCollectionData={ this.getScenarioCollectionData }
-												getScenarioData={ this.getScenarioData }
-												scenariosSelected={ this.scenariosSelected }
-												timePeriodsSelected={ this.timePeriodsSelected }
-												displayGraphs={ this.displayGraphs }/></div>
-                    <div className="main-scrollable">
+	render() {
+
+		let strings = new LocalizedStrings({
+			fi: {
+				app_title: "Metsämittari",
+				lang_switch: "Vaihda kieltä",
+				feedback: "Palaute"
+			},
+			en: {
+				app_title: "Forest Scenario Indicator",
+				lang_switch: "Change language",
+				feedback: "Feedback"
+			}
+		});
+
+		strings.setLanguage(reactLocalStorage.get('lang', 'fi'));
+
+
+		return (
+			<div className="App">
+				<div className="Lang-switcher">
+					<a data-tip={strings.lang_switch}><LangSwitcher toggleLanguage={this.toggleLanguage} lang={this.state.lang} /></a>
+					<ReactTooltip place="top" type="dark" effect="float" />
+				</div>
+				<div className="App-header"><h1 className="App-title">{strings.app_title}</h1>
+				</div>
+				<div className="App-content">
+					<div className="pad"><Scenario data={ this.state.data }
+					dataRegions={ this.state.dataRegions }
+					dataScenarioCollection={ this.state.dataScenarioCollection }
+					dataScenarios={ this.state.dataScenarios }
+					dataTimePeriods={ this.state.dataTimePeriods }
+					dataIDs={ this.state.dataIDs }
+					getRegionData={ this.getRegionData }
+					getScenarioCollectionData={ this.getScenarioCollectionData }
+					getScenarioData={ this.getScenarioData }
+					scenariosSelected={ this.scenariosSelected }
+					timePeriodsSelected={ this.timePeriodsSelected }
+					displayGraphs={ this.displayGraphs }/></div>
+					<div className="main-scrollable">
 						<div className="main"><DataView finalData={ this.state.finalData }
-												dataScenarios={ this.state.dataScenarios }
-												dataTimePeriods={ this.state.dataTimePeriods }
-												dataIndicators={ this.state.dataIndicators }
-												dataIDs={ this.state.dataIDs }/></div>
-                    </div>
+						dataScenarios={ this.state.dataScenarios }
+						dataTimePeriods={ this.state.dataTimePeriods }
+						dataIndicators={ this.state.dataIndicators }
+						dataIDs={ this.state.dataIDs }/></div>
+					</div>
 					<div className="pad"><Indicator dataIndicatorCategories={ this.state.dataIndicatorCategories }
-												dataIndicators={ this.state.dataIndicators }
-												dataIDs={ this.state.dataIDs }
-												indicatorsSelected={ this.indicatorsSelected }
-												displayGraphs={ this.displayGraphs }/></div>
-			        </div>
-				    <div className="fdb">
-                    	<Link to="/feedback">Feedback</Link>
-                	</div>
-		        </div>
-    	  );
-    }
+					dataIndicators={ this.state.dataIndicators }
+					dataIDs={ this.state.dataIDs }
+					indicatorsSelected={ this.indicatorsSelected }
+					displayGraphs={ this.displayGraphs }/></div>
+				</div>
+				<div className="fdb">
+            <Printer className="btn btn-default">PRINT</Printer>
+					  <span>{strings.feedback}: <a href="mailto:metsamittari@luke.fi">metsamittari@luke.fi</a></span>
+				</div>
+			</div>
+		);
+	}
 }
 
 export default Main;
