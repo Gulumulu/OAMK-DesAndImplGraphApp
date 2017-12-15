@@ -46,6 +46,7 @@ textarea {
 .fdb {
     text-align: right;
     font-size: 1.25em;
+    margin: 0 1em;
 }
 
 .App-content {
